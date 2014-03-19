@@ -1,6 +1,6 @@
 ###--------------------------###
 ### Neighbourhood selection
-### Last updated: Mar.14th 2014
+### Last updated: Mar.19th 2014
 ###--------------------------###
 ## This file contains the following functions:
 ##  1) combine_select: combination using the selection rule (for Poisson-binary)
@@ -9,10 +9,8 @@
 
 
 ##########
-## Required library:
+## Required library: glmnet
 
-
-library(glmnet)
 
 ###-------------------------------------###
 ## neighbour ####
@@ -266,7 +264,7 @@ neighbour_Gaussian<-function(dat, p, q, clambda,  pf=FALSE, pw){
 neighbour_Ising<-function(dat, p, q, clambda,  pf=FALSE, pw){
 
   n<-dim(dat)[1]
-  lambda_<-clambda*max(c(sqrt(2*log(p)/n),sqrt(2*log(q)/n)))  
+  lambda_g<-clambda*max(c(sqrt(2*log(p)/n),sqrt(2*log(q)/n)))  
   nlambda_g<-length(lambda_g)
   
   N<-replicate(nlambda_g, matrix(0,p+q,p+q))    
