@@ -16,12 +16,12 @@ M2<-10 # Number of datasets for each graph
 
 source("../Sources/MGM_Graph.r")
 source("./probability_Graph.r")
-
+P_Graph(lwb=0.3,upb=0.3);
 
 
 source("../Sources/MGM_Sampler.r")
 source("./probability_Data.r")
-GB_Data(M2=M2);
+P_Data(M2=M2);
 
 
 #To replicate the experiment in the paper, use:

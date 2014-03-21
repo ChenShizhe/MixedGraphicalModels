@@ -1,19 +1,13 @@
 ###--------------------------------------------------------------###
 ### Probability of successful recovery on Gaussian-binary network
 ### Graph with 60 nodes
-### Last updated: Mar.14th 2014
+### Last updated: Mar.21st 2014
 ###--------------------------------------------------------------###
 
 
-source("../Sources/MGM_Evaluation.r")
-source("../Sources/MGM_Combine.r")
-source("../Sources/MGM_BIC.r")
-source("../Sources/MGM_NSelect.r")
-source("../Sources/MGM_misc.r")
-
-B<-as.matrix(read.csv(file=paste("./Graph/graphGB", "30Fix B.csv",sep=""),header=F))
-P<-as.matrix(read.csv(file=paste("./Graph/graphGB", "30Fix P.csv",sep=""),header=F))
-Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB", "30Fix Phi.csv",sep=""),header=F))
+B<-as.matrix(read.csv(file=paste("./Graph/graphGB", "30 B.csv",sep=""),header=F))
+P<-as.matrix(read.csv(file=paste("./Graph/graphGB", "30 P.csv",sep=""),header=F))
+Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB", "30 Phi.csv",sep=""),header=F))
 
 ###
 p<-dim(P)[1]
@@ -27,7 +21,6 @@ samplesize<-seq(from=200, to=6000, by=200)
 nsize<-length(samplesize)
 
 
-truth<-huge(gr)
 success.all<-replicate(4,matrix(0,total,M2))
 all.rate<-replicate(4,matrix(0,total,nsize))
 
@@ -35,7 +28,7 @@ for(size in 1:nsize){
   count<-0
   for(iter in 1:M2){
     
-    sample_limited<-as.matrix(read.table(file=paste("./Data/sample30", "N10000",iter, ".txt",sep="" )))
+    sample_limited<-as.matrix(read.table(file=paste("./Data/sample30N",iter, ".txt",sep="" )))
     sample_limited<-sample_limited[1:samplesize[size],]
 
     if( is_same(sample_limited[,p+(1:q) ])==T){ success.all[iter,]<-0

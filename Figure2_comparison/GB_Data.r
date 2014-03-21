@@ -8,7 +8,7 @@
 ###--------------------------------------------------------------###
 
 
-GB_Data<-function(M1, M2, Gibbs.n=20, burnin=200){ 
+GB_Data<-function(M1, M2, Gibbs.n=20, burnin=200,size){ 
   for(iterg in 1:M1){
     
     B<-as.matrix(read.csv(file=paste("./Graph/graphGB", "20 B",iterg, ".csv",sep=""),header=F))
@@ -20,9 +20,9 @@ GB_Data<-function(M1, M2, Gibbs.n=20, burnin=200){
     
     for(iter in 1:M2){
       set.seed(19+23*iter)  
-      rs<-sampler(400, B=B, P=P, Phi=Phi, seedmultiplier=(19+23*iter),
+      rs<-sampler(size, B=B, P=P, Phi=Phi, seedmultiplier=(19+23*iter),
                   Gibbs.n=Gibbs.n,burnin=burnin)
-      write.table(rs,file=paste("./Data/sample20GB",iterg, "N400", iter, ".txt",sep=""))
+      write.table(rs,file=paste("./Data/sample20GB",iterg,"N", iter, ".txt",sep=""))
     }
   } 
 }

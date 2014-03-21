@@ -1,18 +1,17 @@
 ###--------------------------------------------------------------###
 ### Neighbourhood selection on the Poisson-binary networks
-### Last updated: Mar.19th 2014
+### Last updated: Mar.21st 2014
 ###--------------------------------------------------------------###
 ### Note:
 ###     Need annotation.
 
 
 
-PB_Select<-function(M1,M2,size){
+PB_Select<-function(M1,M2,size,low=-3,high=0,total=100,maxit=10000){
   
-  meanlow<- -3
-  meanhigh <- 0
+  meanlow<- low
+  meanhigh <- high
   
-  total<-100
   lambda<-exp(-seq(from= 6, to= -4, length.out=total))
   
   #calculate the number we need in order to get 1/2
@@ -33,7 +32,7 @@ PB_Select<-function(M1,M2,size){
     edges_BIC<-array(0,c(M2,8,3))
     evaluation_bic2<-evaluation_or<-evaluation_and<-evaluation<-replicate(total,matrix(0,M2,8))
     for(iter in 1:M2){
-      sample_all<-as.matrix(read.table(file=paste("./Data/sample40PB", iterg, "N400", iter,".txt",sep="" )))
+      sample_all<-as.matrix(read.table(file=paste("./Data/sample40PB", iterg, "N", iter,".txt",sep="" )))
       sample_limited<-sample_all[1:size, ]
       if(is_same(sample_limited)==TRUE){
       } else {
@@ -41,7 +40,7 @@ PB_Select<-function(M1,M2,size){
         
         sds<-as.numeric(apply(sample_limited, 2, sd))
         est_path<-neighbour_PB(dat=sample_limited,p=p,q=q, 
-                               clambda=lambda, ratio=1, pf=T, pw=sds,maxit=10000) 
+                               clambda=lambda, ratio=1, pf=T, pw=sds,maxit=maxit) 
         #preparation for applying the seleciton rules
         
         parameter_bic2<-parameter<-list(coef=1, a0=1)
@@ -76,19 +75,19 @@ PB_Select<-function(M1,M2,size){
     }
     result<-edge_aver(edges=evaluation, count=count)
     
-    write.table(result, file=paste("./Estimates/G", iterg, "PB200_S.txt",sep=""))
+    write.table(result, file=paste("./Estimates/G", iterg, "PB_S.txt",sep=""))
     
     result<-edge_aver(edges=evaluation_and, count=count)
     
-    write.table(result, file=paste("./Estimates/G", iterg, "PB200_AND.txt",sep=""))
+    write.table(result, file=paste("./Estimates/G", iterg, "PB_AND.txt",sep=""))
     
     result<-edge_aver(edges=evaluation_or, count=count)
     
-    write.table(result, file=paste("./Estimates/G", iterg, "PB200_OR.txt",sep=""))
+    write.table(result, file=paste("./Estimates/G", iterg, "PB_OR.txt",sep=""))
     
     result<-edge_aver(edges=evaluation_bic2, count=count)
     
-    write.table(result, file=paste("./Estimates/G", iterg, "PB200_BIC2.txt",sep=""))
+    write.table(result, file=paste("./Estimates/G", iterg, "PB_BIC2.txt",sep=""))
     
     print(count)
   }

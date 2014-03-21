@@ -1,13 +1,13 @@
 ###--------------------------------------------------------------###
 ### Generating graphs for Poisson-Binary network
-### Last updated: Mar.19th 2014
+### Last updated: Mar.21sh 2014
 ###--------------------------------------------------------------###
 
 
 source("../Sources/MGM_Graph.r")
 
 
-PB_Graph<-function(M1){
+PB_Graph<-function(M1,lwb,upb){
   
   p<-q<-40
   
@@ -16,7 +16,7 @@ PB_Graph<-function(M1){
   #####
   
   for(i in 1:M1){
-    gr<-generator(p=p,q=q, lwb=0.8,upb=1,PB=T)
+    gr<-generator(p=p,q=q, lwb=lwb,upb=upb,PB=T)
     B<-gr[[1]]
     P<-gr[[2]]
     Phi<-gr[[3]]    

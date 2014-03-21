@@ -10,9 +10,8 @@
 
 
 
-GB_Ising<-function(M1,M2,size){
+GB_Ising<-function(M1,M2,size,total=100){
   
-  total<-100
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   
   for( iterg in 1:M1){
@@ -25,7 +24,7 @@ GB_Ising<-function(M1,M2,size){
     count<-0
     evaluation_or<-replicate(total,matrix(0,M2,8))
     for(iter in 1:M2){
-      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N400", iter,".txt",sep="" )))
+      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N", iter,".txt",sep="" )))
       sample_limited<-sample_all[1:size,]
       
       if(is_same(sample_limited)==TRUE){
@@ -51,9 +50,8 @@ GB_Ising<-function(M1,M2,size){
 }
 
 
-GB_Gaussian<-function(M1,M2,size){
+GB_Gaussian<-function(M1,M2,size,total=100){
   
-  total<-100
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   
   for( iterg in 1:M1){
@@ -67,7 +65,7 @@ GB_Gaussian<-function(M1,M2,size){
     count<-0
     evaluation_or<-replicate(total,matrix(0,M2,8))
     for(iter in 1:M2){
-      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N400", iter,".txt",sep="" )))
+      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N", iter,".txt",sep="" )))
       sample_limited<-sample_all[1:size,]
       if(is_same(sample_limited)==TRUE){
         
@@ -92,9 +90,8 @@ GB_Gaussian<-function(M1,M2,size){
   }
 }
 
-GB_Glasso<-function(M1,M2,size){
+GB_Glasso<-function(M1,M2,size,total=100){
   
-  total<-100
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   
   for( iterg in 1:M1){
@@ -110,7 +107,7 @@ GB_Glasso<-function(M1,M2,size){
     count<-0
     evaluation<-replicate(total,matrix(0,M2,8))
     for(iter in 1:M2){
-      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N400", iter,".txt",sep="" )))
+      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N", iter,".txt",sep="" )))
       sample_limited<-sample_all[1:size,]
       if(is_same(sample_limited)==TRUE){
       } else {
@@ -130,8 +127,8 @@ GB_Glasso<-function(M1,M2,size){
 }
 
 
-GB_Select<-function(M1,M2,size){  
-  total<-100
+GB_Select<-function(M1,M2,size,total=100){  
+
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   
   for( iterg in 1:M1){
@@ -145,7 +142,7 @@ GB_Select<-function(M1,M2,size){
     evaluation_ratio<-evaluation_node<-replicate(total,matrix(0,M2,8))
     edges_BIC<-replicate(8,matrix(0,M2,3))
     for(iter in 1:M2){
-      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N400", iter,".txt",sep="" )))
+      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N", iter,".txt",sep="" )))
       sample_limited<-sample_all[1:size,]
       if(is_same(sample_limited)==TRUE){
         
@@ -175,9 +172,9 @@ GB_Select<-function(M1,M2,size){
     write.table(result, file=paste("./Estimates/MGM/G", iterg, "MGM_ratio.txt",sep=""))
     
     temp<-BIC_aver(edges=edges_BIC, B=B, P=P, Phi=Phi,count=count, type='number')
-    write.table(temp, file=paste("./Estimates/BIC/G", iterg, "BICcount200.txt",sep=""))   
+    write.table(temp, file=paste("./Estimates/BIC/G", iterg, "BICcount.txt",sep=""))   
     
     temp<-BIC_aver(edges=edges_BIC, B=B, P=P, Phi=Phi,count=count, type='rate')
-    write.table(temp, file=paste("./Estimates/BIC/G", iterg, "BICrate200.txt",sep=""))   
+    write.table(temp, file=paste("./Estimates/BIC/G", iterg, "BICrate.txt",sep=""))   
   }  
 }

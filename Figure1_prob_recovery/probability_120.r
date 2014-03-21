@@ -1,18 +1,12 @@
 ###--------------------------------------------------------------###
 ### Probability of successful recovery on Gaussian-binary network
 ### Graph with 240 nodes
-### Last updated: Mar.14th 2014
+### Last updated: Mar.21st 2014
 ###--------------------------------------------------------------###
 
-source("../Sources/MGM_Evaluation.r")
-source("../Sources/MGM_Combine.r")
-source("../Sources/MGM_BIC.r")
-source("../Sources/MGM_NSelect.r")
-source("../Sources/MGM_misc.r")
-
-B<-as.matrix(read.csv(file=paste("./Graph/graphGB", "120Fix B.csv",sep=""),header=F))
-P<-as.matrix(read.csv(file=paste("./Graph/graphGB", "120Fix P.csv",sep=""),header=F))
-Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB", "120Fix Phi.csv",sep=""),header=F))
+B<-as.matrix(read.csv(file=paste("./Graph/graphGB", "120 B.csv",sep=""),header=F))
+P<-as.matrix(read.csv(file=paste("./Graph/graphGB", "120 P.csv",sep=""),header=F))
+Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB", "120 Phi.csv",sep=""),header=F))
 
 ###
 p<-dim(P)[1]
@@ -26,7 +20,6 @@ samplesize<-seq(from=200, to=6000, by=200)
 nsize<-length(samplesize)
 
 ### Number of replicates
-truth<-huge(gr)
 success.all<-replicate(4,matrix(0,total,M2))
 all.rate<-replicate(4,matrix(0,total,nsize))
 time.start<-proc.time()
@@ -34,7 +27,7 @@ for(size in 1:nsize){
   count<-0
   for(iter in 1:M2){
     
-    sample_limited<-as.matrix(read.table(file=paste("./Data/sample120", "N10000",iter, ".txt",sep="" )))
+    sample_limited<-as.matrix(read.table(file=paste("./Data/sample120N", iter, ".txt",sep="" )))
     sample_limited<-sample_limited[1:samplesize[size],]
     
     if( is_same(sample_limited[,p+(1:q) ])==T){ success.all[iter,]<-0
@@ -42,7 +35,7 @@ for(size in 1:nsize){
       count<-count+1
       sds<-as.numeric(apply(sample_limited, 2, sd))
       est_path<-neighbour(dat=sample_limited,p=p,q=q,
-                                clambda.g=lambdas,ratio=1, pf=T, pw=sds)
+                                clambda=lambdas,ratio=1, pf=T, pw=sds)
       for(j in 1: total){
         est<-combine_type(est_path$N[,,j],p=p,q=q, cc="and",dd="and", neg=TRUE)
         diag(est[[1]])<-1

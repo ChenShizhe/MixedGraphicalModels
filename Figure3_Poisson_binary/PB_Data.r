@@ -1,6 +1,6 @@
 ###--------------------------------------------------------------###
 ### Generating random samples from existing graphs (Poisson and binary)
-### Last updated: Mar.19th 2014
+### Last updated: Mar.21st 2014
 ###--------------------------------------------------------------###
 ### Note:
 ###   Data generation can be very slow depending on the choices of 
@@ -10,10 +10,10 @@
 source("../Sources/MGM_Sampler.r")
 
 
-PB_Data<-function(M1,M2,Gibbs.n=20, burnin=200){
+PB_Data<-function(M1,M2,Gibbs.n=20, burnin=200,low=-3,high=0,size){
   # Set the alpha_1 for poisson nodes
-  meanlow<- -3
-  meanhigh <- 0
+  meanlow<- low
+  meanhigh <- high
   
   for(iterg in 1:M1){
     
@@ -28,9 +28,9 @@ PB_Data<-function(M1,M2,Gibbs.n=20, burnin=200){
     
     for(iter in 1:M2){
       set.seed(19+23*iter)  
-        rs<-sampler_poisson_binary(400, B=B, P=P, Phi=Phi,a0=alpha1, seedmultiplier=(19+23*iter),
+        rs<-sampler_poisson_binary(size, B=B, P=P, Phi=Phi,a0=alpha1, seedmultiplier=(19+23*iter),
                                  Gibbs.n=20,burnin=200)
-      write.table(rs,file=paste("./Data/sample40PB",iterg, "N400", iter, ".txt",sep=""))
+      write.table(rs,file=paste("./Data/sample40PB",iterg, "N",iter, ".txt",sep=""))
     }
   }
   
