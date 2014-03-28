@@ -1,5 +1,5 @@
 ###--------------------------------------------------------------###
-### Draw Figure 2
+### Draw Figure 3
 ### Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
 
@@ -31,11 +31,11 @@ source("../Sources/MGM_NSelect.r")
 source("../Sources/MGM_misc.r")
 source("./GB_Comp.r")
 
-GB_Select(M1=M1,M2=M2,size=size);
+GB_Select(M1=M1,M2=M2,size=size,p=20);
 
-GB_Ising(M1=M1,M2=M2,size=size);
-GB_Gaussian(M1=M1,M2=M2,size=size);
-GB_Glasso(M1=M1,M2=M2,size=size);
+GB_Ising(M1=M1,M2=M2,size=size,p=20);
+GB_Gaussian(M1=M1,M2=M2,size=size,p=20);
+GB_Glasso(M1=M1,M2=M2,size=size,p=20);
 
 
 ##############################################

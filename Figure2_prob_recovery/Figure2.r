@@ -1,29 +1,43 @@
 ###--------------------------------------------------------------###
-### Draw Figure 2
-### Last updated: Mar.27th 2014
+## Draw Figure 2
+## Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
+###
+## This file contains the code to reproduce Figure 2 in the paper.
+##    
+##    Note that this experiment is computationally intensive in both data generation
+## and fitting the models. The whole program takes about a week to finish. A toy example
+## is given in Figure2_quick.r
+
 
 ## Required library
 library(glmnet)
 
-# Toy example
 M2<-100 # Number of datasets for each graph
+size<-6000 # sample size
+# step: the increment of sample sizes to investigate
+# must be a factor of size
+step<-200 
 
-
+# Generate graphs
+# p specifies the number of Gaussian nodes 
+# (note that there are equal numbers of Gaussian and binary nodes)
 source("../Sources/MGM_Graph.r")
 source("./probability_Graph.r")
 P_Graph(lwb=0.3,upb=0.3,p=30);
 P_Graph(lwb=0.3,upb=0.3,p=60);
 P_Graph(lwb=0.3,upb=0.3,p=120);
 
-
+# Draw samples from the generated graphs
 source("../Sources/MGM_Sampler.r")
 source("./probability_Data.r")
-P_Data(M2=M2,Gibbs.n=500,burnin=3000,p=30,size=6000);
-P_Data(M2=M2,Gibbs.n=500,burnin=3000,p=60,size=6000);
-P_Data(M2=M2,Gibbs.n=500,burnin=3000,p=120,size=6000);
+P_Data(M2=M2,Gibbs.n=500,burnin=3000,p=30,size=size);
+P_Data(M2=M2,Gibbs.n=500,burnin=3000,p=60,size=size);
+P_Data(M2=M2,Gibbs.n=500,burnin=3000,p=120,size=size);
 
 
+# Applying the neighbourhood selection on these data sets
+# Note: total is the number of tuning parameters to try within a fixed range.
 
 source("../Sources/MGM_Evaluation.r")
 source("../Sources/MGM_Combine.r")
@@ -34,25 +48,24 @@ source("../Sources/MGM_misc.r")
 
 source("./probability_recover.r")
 # Run the probability recovery
-P_recover(p=30,total=50,M2=M2,size=6000,step=200)
-P_recover(p=60,total=50,M2=M2,size=6000,step=200)
-P_recover(p=120,total=50,M2=M2,size=6000,step=200)
+P_recover(p=30,total=50,M2=M2,size=size,step=step)
+P_recover(p=60,total=50,M2=M2,size=size,step=step)
+P_recover(p=120,total=50,M2=M2,size=size,step=step)
 
 
-##############################################
-#### Plotting ####
+###----------------------------------------###
+####          Plotting                    ####
+
+
+samplesize.new<-seq(from=step, to=size, by=step)
 
 
 
 prob60<-as.matrix(read.table(file=paste("./Estimates/60/","prob60cc.txt",sep="")))
 
-
 prob120<-as.matrix(read.table(file=paste("./Estimates/120/","prob120cc.txt",sep="")))
 
-
 prob240<-as.matrix(read.table(file=paste("./Estimates/240/","prob240cc.txt",sep="")))
-
-samplesize.new<-seq(from=200, to=6000, by=200)
 
 pdf(file = "./Plots/prob-cc.pdf", width=4.5, height=4)
 par(mar=c(2,2.2,2.5,2))
@@ -123,7 +136,6 @@ prob60<-as.matrix(read.table(file=paste("./Estimates/60/","prob60dd.txt",sep="")
 prob120<-as.matrix(read.table(file=paste("./Estimates/120/","prob120dd.txt",sep="")))
 
 prob240<-as.matrix(read.table(file=paste("./Estimates/240/","prob240dd.txt",sep="")))
-
 
 pdf(file = "./Plots/prob-dd.pdf", width=4.5, height=4)
 par(mar=c(2,2.2,2.5,2))

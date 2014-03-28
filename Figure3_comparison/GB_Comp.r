@@ -1,23 +1,30 @@
 ###--------------------------------------------------------------###
-## Neighbourhood selection on the Gaussian-binary networks
-## Competitors: 
-##     NS on the Ising models
-##     NS on the Gaussian graphical models
-##     The graphical lasso
-## Last updated: Mar.19th 2014
+## This file contains the following functions:
+## 1) Neighbourhood selection on the Gaussian-binary networks
+## 2) Neighbourhood selection on the Ising models
+## 3) Neighbourhood selection on the Gaussian graphical models
+## 4) The graphical lasso
+## Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
 
 
+## Arguments of the functions
+# M1: the number of graphs
+# M2: the number of datasets for each graph
+# size: the sample size
+# total: the number of tuning parameters 
+# p: the number of Gaussian nodes, which equals to the number of binary nodes.
 
 
-GB_Ising<-function(M1,M2,size,total=100){
-  
+
+GB_Ising<-function(M1,M2,size,total=100,p){
+  q<-p
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   
   for( iterg in 1:M1){
-    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",  "20 B",iterg, ".csv",sep=""),header=F))
-    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",  "20 P",iterg, ".csv",sep=""),header=F))
-    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB", "20 Phi",iterg, ".csv",sep=""),header=F))
+    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B",iterg, ".csv",sep=""),header=F))
+    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P",iterg, ".csv",sep=""),header=F))
+    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi",iterg, ".csv",sep=""),header=F))
     
     p<-dim(P)[1]
     q<-dim(P)[2]
@@ -26,7 +33,7 @@ GB_Ising<-function(M1,M2,size,total=100){
     for(iter in 1:M2){
       print(paste("Fitting the Ising model on Dataset ",iter, " for Graph ",iterg, sep=""))
       
-      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N", iter,".txt",sep="" )))
+      sample_all<-as.matrix(read.table(file=paste("./Data/sample",2*p, "GB", iterg, "N", iter,".txt",sep="" )))
       sample_limited<-sample_all[1:size,]
       
       if(is_same(sample_limited)==TRUE){
@@ -52,14 +59,13 @@ GB_Ising<-function(M1,M2,size,total=100){
 }
 
 
-GB_Gaussian<-function(M1,M2,size,total=100){
-  
+GB_Gaussian<-function(M1,M2,size,total=100,p){
+  q<-p
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
-  
   for( iterg in 1:M1){
-    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",  "20 B",iterg, ".csv",sep=""),header=F))
-    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",  "20 P",iterg, ".csv",sep=""),header=F))
-    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB", "20 Phi",iterg, ".csv",sep=""),header=F))
+    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B",iterg, ".csv",sep=""),header=F))
+    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P",iterg, ".csv",sep=""),header=F))
+    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi",iterg, ".csv",sep=""),header=F))
     
     p<-dim(P)[1]
     q<-dim(P)[2]
@@ -70,7 +76,7 @@ GB_Gaussian<-function(M1,M2,size,total=100){
       
       print(paste("Fitting the Gaussian graphical model on Dataset ",iter, " for Graph ",iterg, sep=""))
       
-      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N", iter,".txt",sep="" )))
+      sample_all<-as.matrix(read.table(file=paste("./Data/sample",2*p, "GB", iterg, "N", iter,".txt",sep="" )))
       sample_limited<-sample_all[1:size,]
       if(is_same(sample_limited)==TRUE){
         
@@ -88,21 +94,20 @@ GB_Gaussian<-function(M1,M2,size,total=100){
           
         }
       }
-      
     }
     result<-edge_aver(edges=evaluation_or, count=count)
     write.table(result, file=paste("./Estimates/MB/G", iterg, "MB_or.txt",sep=""))
   }
 }
 
-GB_Glasso<-function(M1,M2,size,total=100){
-  
+GB_Glasso<-function(M1,M2,size,total=100,p){
+  q<-p
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   
   for( iterg in 1:M1){
-    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",  "20 B",iterg, ".csv",sep=""),header=F))
-    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",  "20 P",iterg, ".csv",sep=""),header=F))
-    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB", "20 Phi",iterg, ".csv",sep=""),header=F))
+    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B",iterg, ".csv",sep=""),header=F))
+    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P",iterg, ".csv",sep=""),header=F))
+    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi",iterg, ".csv",sep=""),header=F))
     
     p<-dim(P)[1]
     q<-dim(P)[2]
@@ -115,7 +120,7 @@ GB_Glasso<-function(M1,M2,size,total=100){
       
       print(paste("Fitting the Glasso on Dataset ",iter, " for Graph ",iterg, sep=""))
       
-      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N", iter,".txt",sep="" )))
+      sample_all<-as.matrix(read.table(file=paste("./Data/sample",2*p, "GB", iterg, "N", iter,".txt",sep="" )))
       sample_limited<-sample_all[1:size,]
       if(is_same(sample_limited)==TRUE){
       } else {
@@ -135,17 +140,15 @@ GB_Glasso<-function(M1,M2,size,total=100){
 }
 
 
-GB_Select<-function(M1,M2,size,total=100){  
-
+GB_Select<-function(M1,M2,size,total=100,p){  
+  q<-p
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   
   for( iterg in 1:M1){
-    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",  "20 B",iterg, ".csv",sep=""),header=F))
-    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",  "20 P",iterg, ".csv",sep=""),header=F))
-    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB", "20 Phi",iterg, ".csv",sep=""),header=F))
-    
-    p<-dim(P)[1]
-    q<-dim(P)[2]
+    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B",iterg, ".csv",sep=""),header=F))
+    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P",iterg, ".csv",sep=""),header=F))
+    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi",iterg, ".csv",sep=""),header=F))
+
     count<-0
     evaluation_ratio<-evaluation_node<-replicate(total,matrix(0,M2,8))
     edges_BIC<-replicate(8,matrix(0,M2,3))
@@ -153,7 +156,7 @@ GB_Select<-function(M1,M2,size,total=100){
       
       print(paste("Fitting the MGM on Dataset ",iter, " for Graph ",iterg, sep=""))
       
-      sample_all<-as.matrix(read.table(file=paste("./Data/sample20GB", iterg, "N", iter,".txt",sep="" )))
+      sample_all<-as.matrix(read.table(file=paste("./Data/sample",2*p, "GB", iterg, "N", iter,".txt",sep="" )))
       sample_limited<-sample_all[1:size,]
       if(is_same(sample_limited)==TRUE){
         
@@ -175,8 +178,6 @@ GB_Select<-function(M1,M2,size,total=100){
           est<-combine(ggraph,p=p,q=q,cd='node', cc='or',dd='or')  
           evaluation_ratio[iter,,j]<-c(Eva_count(B=B,P=P,Phi=Phi,Est=est,reverse=F), Eva_total(B=B,P=P,Phi=Phi,Est=est,reverse=F)) 
         }
-        
-        
       }
     }
     result<-edge_aver(edges=evaluation_ratio, count=count)

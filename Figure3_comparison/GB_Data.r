@@ -1,12 +1,20 @@
 ###--------------------------------------------------------------###
-### Generating random samples from existing graphs (Gaussian and binary)
-### Last updated: Mar.19th 2014
+## Generating random samples from existing graphs (Gaussian and binary)
+## Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
 ### Note:
-###   Data generation can be very slow depending on the choices of 
-###   parameters of Gibbs sampler
+##   Data generation can be very slow depending on the choices of 
+##   parameters of Gibbs sampler
 ###--------------------------------------------------------------###
 
+
+## Arguments of the function
+# M1 is the number of graphs to generate
+# M2: the number of data sets
+# Gibbs.n: the number of iterations between two samples
+# burnin: the length of samples to ignore
+# p: the number of Gaussian/binary nodes
+# size: sample size 
 
 GB_Data<-function(M1, M2, Gibbs.n=20, burnin=200,size,p){ 
   q<-p
@@ -20,7 +28,6 @@ GB_Data<-function(M1, M2, Gibbs.n=20, burnin=200,size,p){
     
     for(iter in 1:M2){
       print(paste("Generate Dataset ",iter, " for Graph ",iterg, sep=""))
-      set.seed(19+23*iter)  
       rs<-sampler(size, B=B, P=P, Phi=Phi, seedmultiplier=(19+23*iter),
                   Gibbs.n=Gibbs.n,burnin=burnin)
       write.table(rs,file=paste("./Data/sample",2*p,"GB",iterg,"N", iter, ".txt",sep=""))

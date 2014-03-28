@@ -1,7 +1,14 @@
 ###--------------------------------------------------------------###
-### Draw Figure 2
-### Last updated: Mar.27 2014
+## Draw Figure 3
+## Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
+###
+## This file contains the code to reproduce Figure 3 in the paper.
+##    
+##    Note that this experiment is computationally intensive in both data generation
+## and fitting the models. The whole program takes about a week to finish. A toy example
+## is given in Figure3_quick.r
+
 ## Required library
 library(glmnet)
 library(glasso)
@@ -28,11 +35,11 @@ source("../Sources/MGM_NSelect.r")
 source("../Sources/MGM_misc.r")
 source("./GB_Comp.r")
 
-GB_Select(M1=M1,M2=M2,size=size);
+GB_Select(M1=M1,M2=M2,size=size,p=20);
 
-GB_Ising(M1=M1,M2=M2,size=size);
-GB_Gaussian(M1=M1,M2=M2,size=size);
-GB_Glasso(M1=M1,M2=M2,size=size);
+GB_Ising(M1=M1,M2=M2,size=size,p=20);
+GB_Gaussian(M1=M1,M2=M2,size=size,p=20);
+GB_Glasso(M1=M1,M2=M2,size=size,p=20);
 
 
 ##############################################

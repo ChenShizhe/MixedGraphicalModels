@@ -3,11 +3,12 @@
 ### Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
 
+## Arguments of the function
 # p: number of Gaussian nodes
 # total: number of tuning parameters
 # M2: number of data sets
 # size: the maximum sample size
-# step: increment of sample size
+# step: the increment of sample sizes
 
 P_recover<-function(p,total=50,M2,size,step=200){
   
@@ -25,7 +26,7 @@ P_recover<-function(p,total=50,M2,size,step=200){
   lambdas<-exp(-seq(from= 2, to= -2, length.out=total))
   
   # Examinie the following sample sizes
-  samplesize<-seq(from=200, to=size, by=step)
+  samplesize<-seq(from=step, to=size, by=step)
   nsize<-length(samplesize)
   
   
@@ -40,10 +41,14 @@ P_recover<-function(p,total=50,M2,size,step=200){
       sample_limited<-as.matrix(read.table(file=paste("./Data/sample",2*p,"N",iter, ".txt",sep="" )))
       sample_limited<-sample_limited[1:samplesize[size],]
       
-      if( is_same(sample_limited[,p+(1:q) ])==T){ success.all[iter,]<-0
+      
+      if( is_same(sample_limited[,p+(1:q) ])==T){ #if the data set has a degenerate column 
+        success.all[iter,]<-0 
       }else{
         count<-count+1
         sds<-as.numeric(apply(sample_limited, 2, sd))
+        
+        # Apply the neighbourhood selection
         est_path<-neighbour(dat=sample_limited,p=p,q=q,
                             clambda=lambdas,ratio=1, pf=T, pw=sds)
         for(j in 1: total){
