@@ -30,9 +30,12 @@ PB_Select<-function(M1,M2,size,low=-3,high=0,total=100,maxit=10000, p){
   for( iterg in 1:M1){
     
     
-    B<-as.matrix(read.csv(file=paste("./Graph/graphPB", 2*p, " B",iterg, ".csv",sep=""),header=F))
-    P<-as.matrix(read.csv(file=paste("./Graph/graphPB", 2*p, " P",iterg, ".csv",sep=""),header=F))
-    Phi<-as.matrix(read.csv(file=paste("./Graph/graphPB", 2*p, " Phi",iterg, ".csv",sep=""),header=F))
+    # Beta: the matrix of edge potentials for G-G edges
+    B<-as.matrix(read.csv(file=paste("./Graph/graphPB",2*p, " B", iterg,".csv",sep=""),header=F))
+    # Rho: the matrix of edge potentials for G-B edges
+    P<-as.matrix(read.csv(file=paste("./Graph/graphPB",2*p, " P", iterg,".csv",sep=""),header=F))
+    # Phi: the matrix of edge potentials for B-B edges
+    Phi<-as.matrix(read.csv(file=paste("./Graph/graphPB",2*p, " Phi", iterg,".csv",sep=""),header=F))
     
     
     count<-0

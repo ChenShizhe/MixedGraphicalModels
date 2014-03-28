@@ -39,7 +39,7 @@ PB_Data(M1=M1,M2=M2,Gibbs.n=20, burnin=200,size=2*size,p=40);
 
 ###---------------------------------------------------###
 ## Neighbourhood selection ####
-## Note: total is the number of tuning parameters to try within a fixed range.
+## Note: total is the number of tuning parameters to try 
 source("../Sources/MGM_Evaluation.r")
 source("../Sources/MGM_Combine.r")
 source("../Sources/MGM_BIC.r")

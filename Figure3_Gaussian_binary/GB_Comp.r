@@ -22,9 +22,13 @@ GB_Ising<-function(M1,M2,size,total=100,p){
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   
   for( iterg in 1:M1){
-    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B",iterg, ".csv",sep=""),header=F))
-    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P",iterg, ".csv",sep=""),header=F))
-    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi",iterg, ".csv",sep=""),header=F))
+    
+    # Beta: the matrix of edge potentials for G-G edges
+    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B", iterg,".csv",sep=""),header=F))
+    # Rho: the matrix of edge potentials for G-B edges
+    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P", iterg,".csv",sep=""),header=F))
+    # Phi: the matrix of edge potentials for B-B edges
+    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi", iterg,".csv",sep=""),header=F))
     
     p<-dim(P)[1]
     q<-dim(P)[2]
@@ -63,9 +67,12 @@ GB_Gaussian<-function(M1,M2,size,total=100,p){
   q<-p
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   for( iterg in 1:M1){
-    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B",iterg, ".csv",sep=""),header=F))
-    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P",iterg, ".csv",sep=""),header=F))
-    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi",iterg, ".csv",sep=""),header=F))
+    # Beta: the matrix of edge potentials for G-G edges
+    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B", iterg,".csv",sep=""),header=F))
+    # Rho: the matrix of edge potentials for G-B edges
+    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P", iterg,".csv",sep=""),header=F))
+    # Phi: the matrix of edge potentials for B-B edges
+    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi", iterg,".csv",sep=""),header=F))
     
     p<-dim(P)[1]
     q<-dim(P)[2]
@@ -105,9 +112,12 @@ GB_Glasso<-function(M1,M2,size,total=100,p){
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   
   for( iterg in 1:M1){
-    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B",iterg, ".csv",sep=""),header=F))
-    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P",iterg, ".csv",sep=""),header=F))
-    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi",iterg, ".csv",sep=""),header=F))
+    # Beta: the matrix of edge potentials for G-G edges
+    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B", iterg,".csv",sep=""),header=F))
+    # Rho: the matrix of edge potentials for G-B edges
+    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P", iterg,".csv",sep=""),header=F))
+    # Phi: the matrix of edge potentials for B-B edges
+    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi", iterg,".csv",sep=""),header=F))
     
     p<-dim(P)[1]
     q<-dim(P)[2]
@@ -145,10 +155,13 @@ GB_Select<-function(M1,M2,size,total=100,p){
   lambda<-exp(-seq(from= 4, to= -6, length.out=total))
   
   for( iterg in 1:M1){
-    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B",iterg, ".csv",sep=""),header=F))
-    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P",iterg, ".csv",sep=""),header=F))
-    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi",iterg, ".csv",sep=""),header=F))
-
+    # Beta: the matrix of edge potentials for G-G edges
+    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B", iterg,".csv",sep=""),header=F))
+    # Rho: the matrix of edge potentials for G-B edges
+    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P", iterg,".csv",sep=""),header=F))
+    # Phi: the matrix of edge potentials for B-B edges
+    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi", iterg,".csv",sep=""),header=F))
+    
     count<-0
     evaluation_ratio<-evaluation_node<-replicate(total,matrix(0,M2,8))
     edges_BIC<-replicate(8,matrix(0,M2,3))

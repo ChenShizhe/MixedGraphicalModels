@@ -27,11 +27,11 @@ PB_Data<-function(M1,M2,Gibbs.n=20, burnin=200,low=-3,high=0,size,p){
   for(iterg in 1:M1){
     
     # Beta: the matrix of edge potentials for P-P edges
-    B<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " B", iterg,".csv",sep=""),header=F))
+    B<-as.matrix(read.csv(file=paste("./Graph/graphPB",2*p, " B", iterg,".csv",sep=""),header=F))
     # Rho: the matrix of edge potentials for P-B edges
-    P<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " P", iterg,".csv",sep=""),header=F))
+    P<-as.matrix(read.csv(file=paste("./Graph/graphPB",2*p, " P", iterg,".csv",sep=""),header=F))
     # Phi: the matrix of edge potentials for B-B edges
-    Phi<-as.matrix(read.csv(file=paste("./Graph/graphGB",2*p, " Phi", iterg,".csv",sep=""),header=F))
+    Phi<-as.matrix(read.csv(file=paste("./Graph/graphPB",2*p, " Phi", iterg,".csv",sep=""),header=F))
 
     alpha1<-c(rep(meanlow,p/2),rep(meanhigh,p/2))
     
