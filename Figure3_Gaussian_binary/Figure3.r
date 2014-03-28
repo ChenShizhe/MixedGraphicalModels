@@ -4,30 +4,40 @@
 ###--------------------------------------------------------------###
 ###
 ## This file contains the code to reproduce Figure 3 in the paper.
-##    
-##    Note that this experiment is computationally intensive in both data generation
-## and fitting the models. The whole program takes about a week to finish. A toy example
-## is given in Figure3_quick.r
+## Note that this experiment is computationally intensive in both data generation
+## and fitting the models. A toy example that provide similar results on fewer data 
+## sets is given in Figure3_quick.r
 
 ## Required library
 library(glmnet)
 library(glasso)
 
-
-source("../Sources/MGM_Graph.r")
-source("./GB_Graph.r")
-
 M1 <- 100 # Number of graphs
 M2 <- 20 # Number of datasets for each graph
 size <- 200
+
+
+###---------------------------------------------------###
+## Data and Graph generation ####
+## This part takes lots of time.
+
+## Generate graphs
+## p specifies the number of Gaussian nodes 
+## (note that there are equal numbers of Gaussian and binary nodes)
+source("../Sources/MGM_Graph.r")
+source("./GB_Graph.r")
 GB_Graph(M1=M1,lwb=0.3,upb=0.6,p=20);
 
 
+## Draw samples from the generated graphs
 source("../Sources/MGM_Sampler.r")
 source("./GB_Data.r")
 GB_Data(M1=M1,M2=M2,size=2*size,Gibbs.n=500, burnin=3000,p=20);
+###---------------------------------------------------###
 
-
+###---------------------------------------------------###
+## Neighbourhood selection ####
+## Note: total is the number of tuning parameters to try within a fixed range.
 source("../Sources/MGM_Evaluation.r")
 source("../Sources/MGM_Combine.r")
 source("../Sources/MGM_BIC.r")
@@ -36,16 +46,14 @@ source("../Sources/MGM_misc.r")
 source("./GB_Comp.r")
 
 GB_Select(M1=M1,M2=M2,size=size,p=20);
-
 GB_Ising(M1=M1,M2=M2,size=size,p=20);
 GB_Gaussian(M1=M1,M2=M2,size=size,p=20);
 GB_Glasso(M1=M1,M2=M2,size=size,p=20);
+###---------------------------------------------------###
 
 
-##############################################
+###---------------------------------------------------###
 #### Plotting ####
-
-
 source("../Sources/MGM_misc.r")
 
 
@@ -54,10 +62,6 @@ edgeGR<-process(st1="./Estimates/Glasso/G", st2="GR.txt",range=(1:M1) )
 edgeMB_or<-process(st1="./Estimates/MB/G", st2="MB_or.txt",range=(1:M1) )
 edgeI_or<-process(st1="./Estimates/Ising/G", st2="I_or.txt",range=(1:M1) )
 BIC_count<-process(st1="./Estimates/BIC/G", st2="BICcount.txt",range=(1:M1) )
-BIC_rate<-process(st1="./Estimates/BIC/G", st2="BICrate.txt",range=(1:M1) )
-#Precision and recall rates
-BIC_rate 
-
 
 
 pdf(file = paste("./plots/GB-diff.pdf",sep=""), width=8, height=6)
@@ -96,3 +100,7 @@ axis(2,cex.axis=1.5)
 mtext("Num. of Correctly Est. Edges", side=2, line=2.2,cex=2.2)
 mtext('Binary-Binary and Gaussian-Gaussian Edges', outer=T, line=-2.8,cex=2.3)
 dev.off()
+
+
+BIC_rate<-process(st1="./Estimates/BIC/G", st2="BICrate.txt",range=(1:M1) )
+BIC_rate[2,] # the precision and recall rate of the BIC by node type

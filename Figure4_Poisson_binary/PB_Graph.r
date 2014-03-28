@@ -1,20 +1,19 @@
 ###--------------------------------------------------------------###
 ### Generating graphs for Poisson-Binary network
-### Last updated: Mar.21sh 2014
+### Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
 
 
-source("../Sources/MGM_Graph.r")
+## Arguments of the function
+# M1 is the number of graphs to generate
+# the magnitude of an edge potential is drawn from Unif(lwb,upb)
+# p is the number of Guassian nodes
 
 
 PB_Graph<-function(M1,lwb,upb,p){
-  
   q<-p;
-  
   set.seed(12) 
-  
   #####
-  
   for(i in 1:M1){
     gr<-generator(p=p,q=q, lwb=lwb,upb=upb,PB=T)
     write.table(gr[[2]],file=paste("./Graph/graphPB",2*p, " P", i,".csv",sep=""),row.names=F,col.names=F,sep=",")  

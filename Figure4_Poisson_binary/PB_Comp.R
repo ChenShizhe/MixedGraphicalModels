@@ -2,9 +2,16 @@
 ### Neighbourhood selection on the Poisson-binary networks
 ### Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
-### Note:
-###     Need annotation.
 
+## Arguments of the functions
+# M1: the number of graphs
+# M2: the number of datasets for each graph
+# size: the sample size
+# low: \alpha_{1s} for the first p/2 Poisson nodes (used for the oracle selection)
+# high: \alpha_{1s} for the last p/2 Poisson nodes (used for the oracle selection)
+# total: the number of tuning parameters 
+# maxit: the maximum number of iteration for glmnet
+# p: the number of Gaussian nodes, which equals to the number of binary nodes.
 
 
 PB_Select<-function(M1,M2,size,low=-3,high=0,total=100,maxit=10000, p){

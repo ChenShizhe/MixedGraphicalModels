@@ -1,22 +1,29 @@
 ###--------------------------------------------------------------###
-### Draw Figure 3
-### Last updated: Mar.21st 2014
+### Draw Figure 4
+### Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
-### Note: 
-###     1)  Results of GRaFo are not included. Code of GRaFo is available at
-###         http://www.sciencedirect.com/science/article/pii/S0167947313000789
-###--------------------------------------------------------------###
+## This file contains a toy example for the experiment in Figure4.r.
+## Here we generate 3 data sets for each of the 5 graphs.
 
 
 ## Required library
 library(glmnet)
-
 
 # Toy example
 M1<-5 # Number of graphs
 M2<-3 # Number of datasets for each graph
 size<-200
 
+
+
+###-------------------------------------------------###
+## Data and Graph generation ####
+## Note: Graphs and datasets for this toy example are 
+## available in ./Graph and ./Data.
+
+## Generate graphs
+## p specifies the number of Poisson nodes 
+## (note that there are equal numbers of Poisson and binary nodes)
 source("../Sources/MGM_Graph.r")
 source("./PB_Graph.r")
 
@@ -26,7 +33,13 @@ PB_Graph(M1=M1,lwb=0.8,upb=1,p=40);
 source("../Sources/MGM_Sampler.r")
 source("./PB_Data.r")
 PB_Data(M1=M1,M2=M2,Gibbs.n=20, burnin=200,size=2*size,p=40);
+###-------------------------------------------------###
 
+
+
+###---------------------------------------------------###
+## Neighbourhood selection ####
+## Note: total is the number of tuning parameters to try within a fixed range.
 source("../Sources/MGM_Evaluation.r")
 source("../Sources/MGM_Combine.r")
 source("../Sources/MGM_BIC.r")
@@ -34,8 +47,11 @@ source("../Sources/MGM_NSelect.r")
 source("../Sources/MGM_misc.r")
 source("./PB_Comp.r")
 PB_Select(M1=M1,M2=M2,size=size,p=40);
+###---------------------------------------------------###
 
-##############################################
+
+
+###---------------------------------------------------###
 #### Plotting ####
 
 

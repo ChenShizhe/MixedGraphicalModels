@@ -4,8 +4,7 @@
 ###--------------------------------------------------------------###
 ###
 ## This file contains the code to reproduce Figure 2 in the paper.
-##    
-##    Note that this experiment is computationally intensive in both data generation
+## Note that this experiment is computationally intensive in both data generation
 ## and fitting the models. The whole program takes about a week to finish. A toy example
 ## is given in Figure2_quick.r
 
@@ -14,10 +13,13 @@
 library(glmnet)
 
 M2<-100 # Number of datasets for each graph
-size<-6000 # sample size
-# step: the increment of sample sizes to investigate
+size<-6000 #  the maximum sample size
+# step: the increment of sample sizes
 # must be a factor of size
 step<-200 
+
+###---------------------------------------------------###
+## Data and Graph generation ####
 
 # Generate graphs
 # p specifies the number of Gaussian nodes 
@@ -34,27 +36,28 @@ source("./probability_Data.r")
 P_Data(M2=M2,Gibbs.n=500,burnin=3000,p=30,size=size);
 P_Data(M2=M2,Gibbs.n=500,burnin=3000,p=60,size=size);
 P_Data(M2=M2,Gibbs.n=500,burnin=3000,p=120,size=size);
+###---------------------------------------------------###
 
 
-# Applying the neighbourhood selection on these data sets
-# Note: total is the number of tuning parameters to try within a fixed range.
 
+###---------------------------------------------------###
+## Neighbourhood selection ####
+## Note: total is the number of tuning parameters to try
 source("../Sources/MGM_Evaluation.r")
 source("../Sources/MGM_Combine.r")
 source("../Sources/MGM_BIC.r")
 source("../Sources/MGM_NSelect.r")
 source("../Sources/MGM_misc.r")
-
-
 source("./probability_recover.r")
-# Run the probability recovery
+
+
 P_recover(p=30,total=50,M2=M2,size=size,step=step)
 P_recover(p=60,total=50,M2=M2,size=size,step=step)
 P_recover(p=120,total=50,M2=M2,size=size,step=step)
+###---------------------------------------------------###
 
-
-###----------------------------------------###
-####          Plotting                    ####
+###---------------------------------------------------###
+#### Plotting ####
 
 
 samplesize.new<-seq(from=step, to=size, by=step)

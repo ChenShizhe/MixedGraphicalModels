@@ -1,12 +1,12 @@
 ###--------------------------------------------------------------###
-### Draw Figure 4
-### Last updated: Mar.27 2014
+## Draw Figure 4
+## Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
-### Note: 
-###     1)  Results of GRaFo are not included. Code of GRaFo is available at
-###         http://www.sciencedirect.com/science/article/pii/S0167947313000789
-###--------------------------------------------------------------###
-
+###
+## This file contains the code to reproduce Figure 4 in the paper.
+## Note that this experiment is computationally intensive in both data generation
+## and fitting the models. A toy example that provide similar results on fewer data 
+## sets is given in Figure4_quick.r
 
 ## Required library
 library(glmnet)
@@ -15,18 +15,28 @@ M1<-25 # Number of graphs
 M2<-20 # Number of datasets for each graph
 size<-200
 
+
+###---------------------------------------------------###
+## Data and Graph generation ####
+## This part takes lots of time.
+
+# Generate graphs
+# p specifies the number of Poisson nodes 
+# (note that there are equal numbers of Poisson and binary nodes)
 source("../Sources/MGM_Graph.r")
 source("./PB_Graph.r")
-
 PB_Graph(M1=M1,lwb=0.8,upb=1,p=40);
 
 
 source("../Sources/MGM_Sampler.r")
 source("./PB_Data.r")
 PB_Data(M1=M1,M2=M2,Gibbs.n=500, burnin=3000,size=2*size,p=40);
+###---------------------------------------------------###
 
 
-
+###---------------------------------------------------###
+## Neighbourhood selection ####
+## Note: total is the number of tuning parameters to try within a fixed range.
 source("../Sources/MGM_Evaluation.r")
 source("../Sources/MGM_Combine.r")
 source("../Sources/MGM_BIC.r")
@@ -34,8 +44,10 @@ source("../Sources/MGM_NSelect.r")
 source("../Sources/MGM_misc.r")
 source("./PB_Comp.r")
 PB_Select(M1=M1,M2=M2,size=size,p=40);
+###---------------------------------------------------###
 
-##############################################
+
+###---------------------------------------------------###
 #### Plotting ####
 
 

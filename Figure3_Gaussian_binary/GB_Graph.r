@@ -1,5 +1,5 @@
 ###--------------------------------------------------------------###
-### Generating graphs for Poisson-Binary network
+### Generating graphs for Gaussian-Binary network
 ### Last updated: Mar.27 2014
 ###--------------------------------------------------------------###
 
