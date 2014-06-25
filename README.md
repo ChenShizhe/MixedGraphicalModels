@@ -26,7 +26,12 @@ Code for reproducing Figure 4 can be found in Figure4.r. Again, A toy example ca
 
 Functions used in the simulation can be found in ./Sources.
 
+----------
+Links to the authors
 
+Shizhe Chen http://students.washington.edu/szchen/
+Daniela Witten http://www.biostat.washington.edu/~dwitten/
+Ali Shojaie http://www.biostat.washington.edu/~ashojaie/
 
 
 
