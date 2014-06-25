@@ -1,6 +1,6 @@
 ###--------------------------------------------------------------###
 ## Draw Figure 2 with fewer data sets
-## Last updated: Mar.27 2014
+## Last updated: June.25 2014
 ###--------------------------------------------------------------###
 ###
 ## This file contains a toy example for the experiment in Figure2.r.
@@ -72,14 +72,18 @@ prob60<-as.matrix(read.table(file=paste("./Estimates/60/","prob60cc.txt",sep="")
 
 prob120<-as.matrix(read.table(file=paste("./Estimates/120/","prob120cc.txt",sep="")))
 
-pdf(file = "./Plots/prob-cc.pdf", width=4.5, height=4)
-par(mar=c(2,2.2,2.5,2))
-plot(prob60[14,]~ I(samplesize.new/log(60)/3), type="b",main=" ",xlab=" ", cex.main=2,
-     cex.lab=1.5,cex.axis=1.5, ylab=" ",
-     lwd=2,xlim=c(0,100),ylim=c(0,1))
-lines(prob120[14,]~ I(samplesize.new/log(120)/3), type="b",lwd=2, col="green")
+
+pdf(file = "./Plots/prob-cc.pdf",width=4.5, height=4.5)
+par(mar=c(4,4,2.5,2.5))
+plot(prob60[14,]~ I(samplesize.new/log(60)/3),type="b",main=" ",xlab=" ", cex.main=2,
+     cex.lab=1.5,cex.axis=1.5, ylab=" ", lty=1, pch=21, cex=1.5,
+     lwd=2.5,xlim=c(0,100),ylim=c(0,1))
+lines(prob120[14,]~ I(samplesize.new/log(120)/3), type="b",lwd=2.5, col="black", cex=1.5,lty=5,pch=22)
 mtext('(a) Gaussian-Gaussian', outer=T, line=-2,cex=2.3)
+mtext('Sample size', outer=T, side=1, line=-1.5,cex=2)
+mtext('Empirical Probability', outer=T, side=2, line=-1.5,cex=2)
 dev.off()
+
 
 
 
@@ -93,13 +97,16 @@ prob60<-as.matrix(read.table(file=paste("./Estimates/60/","prob60cd.txt",sep="")
 prob120<-as.matrix(read.table(file=paste("./Estimates/120/","prob120cd.txt",sep="")))
 
 
-pdf(file = "./Plots/prob-cd.pdf", width=4.5, height=4)
-par(mar=c(2,2.2,2.5,2))
-plot(prob60[14,]~ I(samplesize.new/log(60)/3), type="b", xlab=" ", 
-     main=" ",cex.main=1.7, 
-     cex.lab=1.5,cex.axis=1.5, ylab=" ", lwd=2,xlim=c(0,150),ylim=c(0,1))
-lines(prob120[14,]~ I(samplesize.new/log(120)/3), type="b",lwd=2, col="green")
-mtext('(b) Gaussian-Binary', outer=T, line=-2,cex=2.3)
+
+pdf(file = "./Plots/prob-cd.pdf", width=4.5, height=4.5)
+par(mar=c(4,4,2.5,2.5))
+plot(prob60[14,]~ I(samplesize.new/log(60)/3), type="b",main=" ",xlab=" ", cex.main=2,
+     cex.lab=1.5,cex.axis=1.5, ylab=" ", lty=1, pch=21, cex=1.5,
+     lwd=2.5,xlim=c(0,100),ylim=c(0,1))
+lines(prob120[14,]~ I(samplesize.new/log(120)/3),  type="b",lwd=2.5, col="black", cex=1.5,lty=5,pch=22)
+mtext('(b) Gaussian-Bernoulli', outer=T, line=-2,cex=2.3)
+mtext('Sample size', outer=T, side=1, line=-1.5,cex=2)
+mtext('Empirical Probability', outer=T, side=2, line=-1.5,cex=2)
 dev.off()
 
 
@@ -114,15 +121,18 @@ prob60<-as.matrix(read.table(file=paste("./Estimates/60/","prob60dc.txt",sep="")
 
 prob120<-as.matrix(read.table(file=paste("./Estimates/120/","prob120dc.txt",sep="")))
 
-pdf(file = "./Plots/prob-dc.pdf", width=4.5, height=4)
-par(mar=c(2,2.2,2.5,2))
-plot(prob60[14,]~ I(samplesize.new/log(60)/3), type="b", xlab=" ",
-     main=" ",cex.main=1.7,
-     cex.lab=1.5,cex.axis=1.5,ylab=" ", lwd=2,xlim=c(100,400),ylim=c(0,1))
-lines(prob120[14,]~ I(samplesize.new/log(120)/3), type="b",lwd=2, col="green")
-mtext('(c) Binary-Gaussian', outer=T, line=-2,cex=2.3)
-dev.off()
 
+pdf(file = "./Plots/prob-dc.pdf",  width=4.5, height=4.5)
+par(mar=c(4,4,2.5,2.5))
+plot(prob60[14,]~ I(samplesize.new/log(60)/3), type="b",main=" ",xlab=" ", cex.main=2,
+     cex.lab=1.5,cex.axis=1.5, ylab=" ", lty=1, pch=21, cex=1.5,
+     lwd=2.5,xlim=c(100,400),ylim=c(0,1))
+lines(prob120[14,]~ I(samplesize.new/log(120)/3),  type="b",lwd=2.5, col="black", cex=1.5,lty=5,pch=22)
+mtext('(c) Bernoulli-Gaussian', outer=T, line=-2,cex=2.3)
+mtext('Sample size', outer=T, side=1, line=-1.5,cex=2)
+mtext('Empirical Probability', outer=T, side=2, line=-1.5,cex=2)
+
+dev.off()
 
 
 ##############################
@@ -135,11 +145,14 @@ prob60<-as.matrix(read.table(file=paste("./Estimates/60/","prob60dd.txt",sep="")
 prob120<-as.matrix(read.table(file=paste("./Estimates/120/","prob120dd.txt",sep="")))
 
 
-pdf(file = "./Plots/prob-dd.pdf", width=4.5, height=4)
-par(mar=c(2,2.2,2.5,2))
-plot(prob60[14,]~ I(samplesize.new/log(60)/3), type="b", xlab="",
-     main=" ",cex.main=1.7,
-     cex.lab=1.5,cex.axis=1.5,ylab=" ", lwd=2,xlim=c(100,400),ylim=c(0,1))
-lines(prob120[14,]~ I(samplesize.new/log(120)/3), type="b",lwd=2, col="green")
-mtext('(d) Binary-Binary', outer=T, line=-2,cex=2.3)
+pdf(file = "./Plots/prob-dd.pdf", width=4.5, height=4.5)
+par(mar=c(4,4,2.5,2.5))
+plot(prob60[14,]~ I(samplesize.new/log(60)/3), type="b",main=" ",xlab=" ", cex.main=2,
+     cex.lab=1.5,cex.axis=1.5, ylab=" ", lty=1, pch=21, cex=1.5,
+     lwd=2.5,xlim=c(100,400),ylim=c(0,1))
+lines(prob120[14,]~ I(samplesize.new/log(120)/3),type="b",lwd=2.5, col="black", cex=1.5,lty=5,pch=22)
+mtext('(d) Bernoulli-Bernoulli', outer=T, line=-2,cex=2.3)
+mtext('Sample size', outer=T, side=1, line=-1.5,cex=2)
+mtext('Empirical Probability', outer=T, side=2, line=-1.5,cex=2)
+
 dev.off()
