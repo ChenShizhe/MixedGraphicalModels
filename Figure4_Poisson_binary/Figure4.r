@@ -66,14 +66,14 @@ edge_S<-process(st1="./Estimates/G", st2="PB_S.txt",range=(1:M1) )
 edge_bic2<-process(st1="./Estimates/G", st2="PB_BIC2.txt",range=(1:M1) )
 
 
-
-pdf(file = paste("./plots/PB-diff.pdf",sep=""), width=8, height=6)
-par(mar=c(4.2,4,4,0.3)) # Margins
+pdf(file = paste("./plots/PB-diff.pdf",sep=""), width=8, height=8)
+par(mar=c(4.2,4.2,4,4)) # Margins
 plot(edge_S[,2]~edge_S[,6],type="l",xlim=c(0,400),ylim=c(0,40), lwd=4,
-     xlab="Number of Estimated Edges", ylab=" ",col="gray", cex.lab=2.2,cex.axis=1.5)
+     xlab=" ", ylab=" ",col="gray", cex.lab=2.2,cex.axis=1.5)
 lines(edge_bic2[,2]~edge_bic2[,6],lwd=4,lty="dashed")
-lines(edge_and[,2]~edge_and[,6],col="#FF4040",lwd=4,lty="solid")
-lines(edge_or[,2]~edge_or[,6],col="#FF404090",lwd=4,lty="dashed")
-mtext("Num. of Correctly Est. Edges", side=2, line=2.2,cex=2.2)
-mtext('Binary-Poisson Edges', outer=T, line=-2.8,cex=2.3)
+lines(edge_and[,2]~edge_and[,6],col="black",lwd=4,lty="dotted")
+lines(edge_or[,2]~edge_or[,6],col="black",lwd=4,lty="twodash")
+mtext('Number of Estimated Edges', outer=T, side=1, line=-1.8,cex=2.2)
+mtext("Number of Correctly Estimated Edges", side=2, line=2.2,cex=2.2)
+mtext('Bernoulli-Poisson Edges', outer=T, line=-2.8,cex=2.3)
 dev.off()
