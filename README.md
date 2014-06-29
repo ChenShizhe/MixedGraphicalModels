@@ -15,11 +15,11 @@ There are three numerical experiments in the paper
 
 Code for reproducing Figure 2 can be found in Figure2.r. Note that this code is computationally intensive and might take weeks to run. A toy example can be found in Figure2_quick.r, where we tune down the number of replicates and parameters of the Gibbs sampler. 
 
-2) Edge selection for Gaussian-binary graphs (Figure 3) in Section 6.3: (./Figure3_Gaussian_binary).
+2) Edge selection for Gaussian-Bernoulli graphs (Figure 3) in Section 6.3: (./Figure3_Gaussian_binary).
 
 Code for reproducing Figure 3 can be found in Figure3.r. Again, A toy example can be found in Figure3_quick.r. Note that the code does not include methods whose code is not publicly available.
 
-3) Application of selection rule on Poisson-binary graphs (Figure 4) in Section 6.4 (./Figure4_Poisson_binary).
+3) Application of selection rule on Poisson-Bernoulli graphs (Figure 4) in Section 6.4 (./Figure4_Poisson_binary).
 
 Code for reproducing Figure 4 can be found in Figure4.r. Again, A toy example can be found in Figure3_quick.r. Note that the code does not include GRaFo by Fellinghauer et al. 2013.
 
