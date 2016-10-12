@@ -8,6 +8,7 @@ Chen, Shizhe, Daniela Witten, and Ali Shojaie. "Selection and Estimation for Mix
 
 Link:
 http://arxiv.org/abs/1311.0085
+http://biomet.oxfordjournals.org/content/102/1/47
 
 There are three numerical experiments in the paper
 
@@ -30,7 +31,7 @@ Functions used in the simulation can be found in ./Sources.
 Links to the authors
 
 
-Shizhe Chen http://students.washington.edu/szchen/
+Shizhe Chen http://www.chenshizhe.com/
 
 Daniela Witten http://www.biostat.washington.edu/~dwitten/
 
